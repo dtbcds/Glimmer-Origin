@@ -1,5 +1,5 @@
 {
-	"name": "§d§l§nSteely Stare",
+	"name": "Â§dÂ§lÂ§nSteely Stare",
 	"description": "You can charge and shoot a gold beam when in Brilliant form!",
 	"type": "origins:multiple",
 	"resource": {
@@ -9,87 +9,85 @@
 		"start_value": 70,
 		"min_action": {
 			"type": "origins:and",
-			"actions": [
-			{
-				"type": "origins:execute_command",
-				"command": "playsound minecraft:block.beacon.deactivate player @a[distance=0..15] ~ ~ ~ 1 1 1",
-			    "permission_level": 4
-			},
-			{
-			"type": "origins:delay",
-			"ticks": 75,
-			"action": {
-				"type": "origins:execute_command",
-				"command": "playsound minecraft:block.smithing_table.use player @a[distance=0..15] ~ ~ ~ 1 2 1",
-			    "permission_level": 4
-			}
+			"actions": [{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:block.beacon.deactivate player @a[distance=0..15] ~ ~ ~ 1 1 1",
+					"permission_level": 4
+				},
+				{
+					"type": "origins:delay",
+					"ticks": 75,
+					"action": {
+						"type": "origins:execute_command",
+						"command": "playsound minecraft:block.smithing_table.use player @a[distance=0..15] ~ ~ ~ 1 2 1",
+						"permission_level": 4
+					}
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "power grant @s tiny:grant/refill",
+					"permission_level": 4
+				}
+			]
 		},
-			{
-			"type": "origins:delay",
-			"ticks": 75,
-			"action": {
-				"type": "origins:change_resource",
-			    "resource": "*:*_resource",
-			    "change": 70
-			}
-		}
-		]
+		"max_action": {
+			"type": "origins:execute_command",
+			"command": "power remove @s tiny:grant/refill",
+			"permission_level": 4
 		},
 		"hud_render": {
-          "should_render": true,
-          "sprite_location": "carrier:textures/gui/glimmer.png",
-          "bar_index": 1,
-		  "condition": {
+			"should_render": true,
+			"sprite_location": "carrier:textures/gui/glimmer.png",
+			"bar_index": 1,
+			"condition": {
 				"type": "origins:resource",
 				"resource": "*:*_resource",
 				"comparison": "<",
 				"compare_to": 70
 			}
-        }
+		}
 	},
 	"activate": {
-  "type": "origins:active_self",
-  "entity_action": {
-	  "type": "origins:and",
-	  "actions": [
-	  {
-		  "type": "origins:change_resource",
-		  "resource": "*:*_resource",
-		  "change": -10
-	  },
-	  {
-	  "type": "origins:execute_command",
-	  "command": "function particles:summon",
-	  "permission_level": 4
-	  }
-	  ]
-  },
-  "cooldown": 20,
-  "hud_render": {
-    "should_render": true,
-    "sprite_location": "carrier:textures/gui/glimmer.png",
-    "bar_index": 5
-  },
-  "condition": {
-	  "type": "origins:and",
-	  "conditions": [
-	  {
-		  "type": "origins:resource",
-			"resource": "*:*_resource",
-			"comparison": ">=",
-			"compare_to": 10
-	  },
-	  {
-			"type": "origins:resource",
-			  "resource": "tiny:meter",
-			  "comparison": "==",
-			  "compare_to": 1
-	  }
-	  ]
-	},
-  "key": {
-    "key": "key.origins.primary_active",
-    "continuous":true
-  }
+		"type": "origins:active_self",
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [{
+					"type": "origins:change_resource",
+					"resource": "*:*_resource",
+					"change": -10
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "function particles:summon",
+					"permission_level": 4
+				}
+			]
+		},
+		"cooldown": 20,
+		"hud_render": {
+			"should_render": true,
+			"sprite_location": "carrier:textures/gui/glimmer.png",
+			"bar_index": 5
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [{
+					"type": "origins:resource",
+					"resource": "*:*_resource",
+					"comparison": ">=",
+					"compare_to": 10
+				},
+				{
+					"type": "origins:resource",
+					"resource": "tiny:meter",
+					"comparison": "==",
+					"compare_to": 1
+				}
+			]
+		},
+		"key": {
+			"key": "key.origins.primary_active",
+			"continuous": true
+		}
 	}
 }
