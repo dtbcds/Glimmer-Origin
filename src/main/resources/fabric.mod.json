@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "carrier",
+  "version": "${version}",
+
+  "name": "glimmer origin",
+  "description": "",
+  "authors": [
+    "dtbcds",
+	"Shiny"
+  ],
+  "contact": {
+  },
+
+  "license": "Apache-2.0",
+  "icon": "assets/carrier/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.dtbcds.carrier.Carrier"
+    ],
+    "client": [
+      "me.dtbcds.carrier.CarrierClient"
+    ],
+    "cardinal-components-entity": [
+      "me.dtbcds.carrier.Carrier"
+    ]
+  },
+  "mixins": [
+    "carrier.mixins.json"
+  ],
+  "custom": {
+    "cardinal-components": [
+      "carrier:holder"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.10.0",
+    "fabric": "*",
+    "minecraft": "1.18.x"
+  }
+}

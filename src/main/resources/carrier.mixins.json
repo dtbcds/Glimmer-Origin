@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "me.dtbcds.carrier.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AccessorBlockEntity",
+    "AccessorEntity",
+    "MixinAbstractBlock",
+    "MixinMobEntity",
+    "MixinPlayerEntity",
+    "MixinServerPlayerEntity"
+  ],
+  "client": [
+    "AccessorBannerBlockEntity",
+    "MixinClientPlayerEntity",
+    "MixinGameRenderer",
+    "MixinMinecraftClient",
+    "MixinPlayerInventory",
+    "MixinPlayerModel",
+    "MixinPlayerRenderer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

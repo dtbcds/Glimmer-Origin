@@ -1,0 +1,24 @@
+{
+    "type": "origins:action_over_time",
+    "entity_action": {
+        "type": "origins:execute_command",
+        "command": "particle minecraft:electric_spark ~ ~ ~ .4 1.5 .4 0.1 4 normal"
+    },
+	"condition": {
+		"type": "origins:and",
+		"conditions": [
+		{
+		"type": "origins:resource",
+			"resource": "tiny:meter",
+			"comparison": "==",
+			"compare_to": 1
+		},
+		{
+		"type": "origins:invisible",
+		"inverted": true
+	}
+	]
+	},
+    "interval": 1,
+    "hidden": true
+}

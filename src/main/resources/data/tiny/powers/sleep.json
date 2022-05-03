@@ -1,0 +1,18 @@
+{
+	"name": "§4§l§nGilded Preference",
+	"description": "I mean, who doesn't like sleeping near a pile of gold? (4 blocks required)",
+    "type": "origins:prevent_sleep",
+	"condition": {
+    "type": "origins:block_in_radius",
+    "block_condition": {
+        "type": "origins:block",
+        "block": "minecraft:gold_block"
+    },
+    "radius": 4,
+    "shape": "cube",
+    "comparison": ">=",
+    "compare_to": 4,
+	"inverted": true
+},
+		"message": "§6§l§kkkk§r§6§lYou like it shiny, don't you?§kkkk"
+}
