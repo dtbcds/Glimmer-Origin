@@ -1,9 +1,0 @@
-{
-  	"type": "origins:invulnerability",
-  	"damage_condition": {
-    	"type": "origins:name",
-    	"name": "fall"
-  	},
-	"name": "§e§l§nProtective Plating",
-	"description": "Your body is hard enough to withstand fall damage."
-}   
