@@ -1,0 +1,9 @@
+{
+    "type": "origins:action_over_time",
+    "entity_action": {
+			"type": "origins:change_resource",
+			    "resource": "tiny:ray_resource",
+			    "change": 70
+    },
+    "interval": 75
+}
