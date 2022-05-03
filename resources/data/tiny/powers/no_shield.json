@@ -1,0 +1,11 @@
+{
+  "type": "origins:prevent_item_use",
+  "item_condition": {
+    "type": "origins:ingredient",
+    "ingredient": {
+      "tag": "origins:shields"
+    }
+  },
+  "name": "§4§l§nUnwieldy",
+  "description": "Why would a proud, golden being use shields? You trust in your natural sturdiness."
+}

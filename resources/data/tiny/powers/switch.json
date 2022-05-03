@@ -1,0 +1,183 @@
+{
+    "name": "§c§l§nMineral Composition",
+	"description": "You can switch between your two forms, Quicksilver and Brilliant Gold!",
+    "type": "origins:multiple",
+    "switch": {
+        "type": "origins:active_self",
+		"cooldown": 60,
+		"hud_render": {
+		"should_render": true,
+		"sprite_location": "carrier:textures/gui/glimmer.png",
+		"bar_index": 2
+	},
+        "key": {
+            "key": "key.origins.secondary_active"
+        },
+        "entity_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:resource",
+                "resource": "tiny:meter",
+                "comparison": "==",
+                "compare_to": 0
+            },
+            "if_action": {
+                "type": "origins:and",
+                "actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:entity.illusioner.prepare_blindness player @a[distance=0..15] ~ ~ ~ 1 0.9"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:block.grindstone.use player @a[distance=0..15] ~ ~ ~ 1 0"
+				},
+                    {
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:height 1.5 @s"
+                    },
+                    {
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:width 1.5 @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:entity_reach 1.2 @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:block_reach 1.2 @s"
+                    },
+                    {
+                        "type": "origins:change_resource",
+                        "resource": "tiny:meter",
+                        "change": 1,
+                        "operation": "set"
+                    }
+                ]
+            },
+            "else_action": {
+                "type": "origins:and",
+                "actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:block.ender_chest.close player @a[distance=0..15] ~ ~ ~ 1 0"
+				},
+                    {
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:height 0.5 @s"
+                    },
+                    {
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:width 0.5 @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:entity_reach 0.8 @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:block_reach 0.8 @s"
+                    },
+                    {
+                        "type": "origins:change_resource",
+                        "resource": "tiny:meter",
+                        "change": 0,
+                        "operation": "set"
+                    }
+                ]
+            }
+        }
+    },
+    "killed": {
+        "type": "origins:action_on_callback",
+        "execute_chosen_when_orb": true,
+    "entity_action_chosen": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:execute_command",
+                "command": "scale set pehkui:height 0.5 @s"
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "scale set pehkui:width 0.5 @s"
+            },
+			{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:entity_reach 0.8 @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:block_reach 0.8 @s"
+                    },
+			{
+                "type": "origins:change_resource",
+                "resource": "tiny:meter",
+                "change": 0,
+                "operation": "set"
+            },
+			{
+                "type": "origins:change_resource",
+                "resource": "tiny:meter2",
+                "change": 100,
+                "operation": "set"
+            }
+        ]
+    },
+    "entity_action_respawned": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:execute_command",
+                "command": "scale set pehkui:height 0.5 @s"
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "scale set pehkui:width 0.5 @s"
+            },
+			{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:entity_reach 0.8 @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale set pehkui:block_reach 0.8 @s"
+                    },
+			{
+                "type": "origins:change_resource",
+                "resource": "tiny:meter",
+                "change": 0,
+                "operation": "set"
+            },
+			{
+                "type": "origins:change_resource",
+                "resource": "tiny:meter2",
+                "change": 100,
+                "operation": "set"
+            }
+        ]
+    },
+	"entity_action_lost": {
+		"type": "origins:and",
+		"actions": [
+            {
+                "type": "origins:execute_command",
+                "command": "scale reset pehkui:height @s"
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "scale reset pehkui:width @s"
+            },
+			{
+                        "type": "origins:execute_command",
+                        "command": "scale reset pehkui:entity_reach @s"
+                    },
+					{
+                        "type": "origins:execute_command",
+                        "command": "scale reset pehkui:block_reach @s"
+                    }
+        ]
+    }
+    }
+}

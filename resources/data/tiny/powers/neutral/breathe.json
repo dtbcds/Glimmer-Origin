@@ -1,0 +1,29 @@
+{
+  "type": "origins:stacking_status_effect",
+   "min_stacks": 2,
+   "max_stacks": 2,
+   "duration_per_stack": 10,
+   "effects": [
+   {
+       "effect": "minecraft:water_breathing",
+       "duration": 1,
+       "amplifier": 0,
+       "is_ambient": true,
+       "show_particles": false,
+       "show_icon": false
+   },
+   {
+       "effect": "minecraft:slowness",
+       "duration": 1,
+       "amplifier": 2,
+       "is_ambient": true,
+       "show_particles": false,
+       "show_icon": false
+   }
+   ],
+  "condition": {
+    "type": "origins:submerged_in",
+	"fluid": "minecraft:water"
+  },
+  "hidden": true
+}

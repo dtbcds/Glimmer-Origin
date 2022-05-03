@@ -1,0 +1,133 @@
+{
+	"type": "origins:multiple",
+	"sound": {
+		"type": "origins:action_on_callback",
+		"entity_action_gained": {
+			"type": "origins:and",
+			"actions": [
+			{
+			"type": "origins:execute_command",
+			"command": "playsound minecraft:entity.illusioner.prepare_blindness player @a[distance=0..15] ~ ~ ~ 0.8 1 1",
+			"permission_level": 4
+            },
+			{
+			"type": "origins:delay",
+			"ticks": 20,
+			"action": {
+			"type": "origins:execute_command",
+			"command": "playsound minecraft:entity.elder_guardian.curse player @a[distance=0..15] ~ ~ ~ 0.5 0 1",
+			"permission_level": 4
+			}
+        },
+		{
+			"type": "origins:delay",
+			"ticks": 20,
+			"action": {
+			"type": "origins:execute_command",
+			"command": "playsound minecraft:block.end_gateway.spawn player @a[distance=0..15] ~ ~ ~ 0.4 1 1",
+			"permission_level": 4
+			}
+        },
+		{
+			"type": "origins:delay",
+			"ticks": 20,
+			"action": {
+			"type": "origins:execute_command",
+			"command": "playsound minecraft:block.beacon.deactivate player @a[distance=0..15] ~ ~ ~ 0.4 1 1",
+			"permission_level": 4
+			}
+        }
+		]
+		}
+	},
+	"beam": {
+  "type": "origins:action_over_time",
+  "interval": 4,
+  "entity_action": {
+		  "type": "origins:delay",
+		  "ticks": 20,
+		  "action": {
+  	"type": "origins:raycast",
+  	"distance": 80,
+  	"block": true,
+  	"entity": true,
+  	"shape_type": "visual",
+  	"fluid_handling": "none",
+	"bientity_action": {
+		"type": "origins:and",
+		"actions": [
+		 {
+			 "type": "origins:target_action",
+			 "action": {
+          "type": "origins:play_sound",
+          "sound": "minecraft:entity.illusioner.mirror_move",
+          "volume": 1,
+          "pitch": 2
+			 }
+        },
+		{
+			 "type": "origins:target_action",
+			 "action": {
+             "type": "origins:apply_effect",
+             "effect": {
+                 "effect": "minecraft:glowing",
+                 "duration": 5,
+                 "amplifier": 0,
+				 "is_ambient": false,
+                 "show_particles": false,
+                 "show_icon": true
+			 }
+			 }
+        },
+		{
+			 "type": "origins:target_action",
+			 "action": {
+             "type": "origins:apply_effect",
+             "effect": {
+                 "effect": "minecraft:invisibility",
+                 "duration": 5,
+                 "amplifier": 0,
+				 "is_ambient": false,
+                 "show_particles": false,
+                 "show_icon": true
+			 }
+			 }
+        },
+		{
+			"type": "origins:target_action",
+			"action": {
+			"type": "origins:damage",
+                "amount": 2,
+				"source": {
+					"name": "explosion",
+					"bypasses_armor": true
+				}
+			}
+		}
+		]
+	},
+	"bientity_condition": {
+		"type": "origins:target_condition",
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+			{
+			"type": "origins:entity_type",
+			"entity_type": "carrier:ball",
+			"inverted": true
+			},
+			{
+			"type": "origins:nbt",
+			"nbt": "{Tags:['shiny']}",
+			"inverted": true
+			}
+			]
+		}
+	},
+  	"command_along_ray": "function particles:ray",
+  	"command_step": 0.4
+	  }
+  }
+	},
+	"hidden": true
+}

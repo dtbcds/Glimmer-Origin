@@ -1,0 +1,35 @@
+{
+	"name": "§4§l§nBrute Force",
+	"description": "You can't use ranged weapons, as they aren't built for hunks like you.",
+	"type": "origins:multiple",
+	"crossbow": {
+    "type": "origins:prevent_item_use",
+    "item_condition": {
+        "type": "origins:ingredient",
+        "inverted": false,
+        "ingredient": {
+            "item": "minecraft:crossbow"
+        }
+    }
+	},
+	"bow": {
+		"type": "origins:prevent_item_use",
+    "item_condition": {
+        "type": "origins:ingredient",
+        "inverted": false,
+        "ingredient": {
+            "item": "minecraft:bow"
+        }
+    }
+	},
+	"trident": {
+		"type": "origins:prevent_item_use",
+    "item_condition": {
+        "type": "origins:ingredient",
+        "inverted": false,
+        "ingredient": {
+            "item": "minecraft:trident"
+        }
+    }
+	}
+}
