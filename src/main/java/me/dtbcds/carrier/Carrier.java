@@ -10,12 +10,18 @@ import org.apache.logging.log4j.LogManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.ArgumentType;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import io.github.apace100.apoli.Apoli;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.power.PowerType;
+import io.github.apace100.apoli.power.PowerTypeRegistry;
 import me.dtbcds.carrier.api.Carriable;
 import me.dtbcds.carrier.api.CarriablePlacementContext;
 import me.dtbcds.carrier.api.CarriableRegistry;
@@ -44,6 +50,7 @@ import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.impl.util.Arguments;
 import net.minecraft.block.AbstractBannerBlock;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.BedBlock;
@@ -51,6 +58,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.DoorBlock;
+import net.minecraft.command.argument.ArgumentTypes;
+import net.minecraft.command.argument.BrigadierArgumentTypes;
+import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -65,6 +76,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EulerAngle;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
 @SuppressWarnings("deprecation")
@@ -145,44 +158,19 @@ public class Carrier implements ModInitializer, EntityComponentInitializer {
         });
 
         CommandRegistrationCallback.EVENT.register((commandDispatcher, b) ->
-                commandDispatcher.register(CommandManager.literal("carrierinfo")
-                        .executes((ctx) -> {
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            NbtCompound tag = new NbtCompound();
-                            HOLDER.get(player).writeToNbt(tag);
-                            ctx.getSource().sendFeedback(new LiteralText(tag.toString()), false);
-                            return 1;
-                        })));
-
-        CommandRegistrationCallback.EVENT.register((commandDispatcher, b) ->
-                commandDispatcher.register(CommandManager.literal("carrierdelete")
-                        .executes((ctx) -> {
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            CarrierComponent component = HOLDER.get(player);
-                            NbtCompound tag = new NbtCompound();
-                            component.writeToNbt(tag);
-                            component.setCarryingData(null);
-                            ctx.getSource().sendFeedback(new LiteralText("Deleted ").append(new LiteralText(tag.toString()).setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, tag.toString())))), false);
-                            return 1;
-                        })));
-
-        CommandRegistrationCallback.EVENT.register((commandDispatcher, b) ->
-                commandDispatcher.register(CommandManager.literal("carrierplace")
-                        .executes((ctx) -> {
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            CarrierComponent component = HOLDER.get(player);
-                            Carriable<Object> carriable = CarriableRegistry.INSTANCE.get(component.getCarryingData().getType());
-                            BlockPos pos = player.getBlockPos().offset(player.getHorizontalFacing());
-                            ServerWorld world = ctx.getSource().getWorld();
-                            if (!world.getBlockState(pos).getMaterial().isReplaceable()) {
-                                ctx.getSource().sendFeedback(new LiteralText("Could not place! Make sure you have empty space in front of you."), false);
-                                return 1;
-                            }
-                            CarriablePlacementContext placementCtx = new CarriablePlacementContext(component, carriable, pos, player.getHorizontalFacing().getOpposite(), player.getHorizontalFacing());
-                            carriable.tryPlace(component, world, placementCtx);
-                            component.setCarryingData(null);
-                            return 1;
-                        })));
+        	commandDispatcher.register(CommandManager.literal("ball").then(CommandManager.argument("actor", EntityArgumentType.entity())
+        			.executes((ctx) -> {
+        				Entity e = EntityArgumentType.getEntity(ctx, "actor");
+        				BallEntity ball = new BallEntity(BALL, e.getEntityWorld());
+        				ball.setPosition(e.getEyePos().add(e.getRotationVector().multiply(2.3)));
+        				PowerHolderComponent component = PowerHolderComponent.KEY.get(ball);
+        				PowerType<?> power = PowerTypeRegistry.get(new Identifier("tiny","beam"));
+        				e.getEntityWorld().spawnEntity(ball);
+        				ball.setHeadYaw(MathHelper.wrapDegrees(e.getHeadYaw()));
+        				ball.setPitch(MathHelper.wrapDegrees(e.getPitch()));
+        				component.addPower(power, Apoli.identifier("command"));
+        				return 1;
+        			}))));
         FabricDefaultAttributeRegistry.register(BALL, BallEntity.createLivingAttributes());
     }
 
