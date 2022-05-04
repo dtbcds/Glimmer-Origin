@@ -19,6 +19,6 @@ public class CarrierClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Carrier.BALL, (context) -> {
             return new BallEntityRenderer(context);
         });
-		EntityModelLayerRegistry.registerModelLayer(MODEL_BALL_LAYER, BallEntityModel::getTexturedModelData);
+//		EntityModelLayerRegistry.registerModelLayer(MODEL_BALL_LAYER, BallEntityModel::getTexturedModelData);
 	}
 }
