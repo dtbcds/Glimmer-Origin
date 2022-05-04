@@ -58,7 +58,7 @@
 				},
 				{
 					"type": "origins:execute_command",
-					"command": "function particles:summon",
+					"command": "ball @s",
 					"permission_level": 4
 				}
 			]
